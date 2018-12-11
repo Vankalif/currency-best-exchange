@@ -1,0 +1,1 @@
+create table if not exist currencys(name text, code text);
