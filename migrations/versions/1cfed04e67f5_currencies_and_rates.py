@@ -1,8 +1,8 @@
-"""first migrate
+"""Currencies and Rates
 
-Revision ID: d23cf26d29db
+Revision ID: 1cfed04e67f5
 Revises: 
-Create Date: 2019-01-02 15:22:21.637764
+Create Date: 2019-01-03 18:26:28.069249
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd23cf26d29db'
+revision = '1cfed04e67f5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('code', sa.String(length=3), nullable=True),
     sa.Column('name', sa.String(length=64), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.Column('url', sa.String(length=64), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('url')
     )
     op.create_index(op.f('ix_currencies_code'), 'currencies', ['code'], unique=True)
     op.create_index(op.f('ix_currencies_name'), 'currencies', ['name'], unique=True)
