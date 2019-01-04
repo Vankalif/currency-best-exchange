@@ -1,8 +1,8 @@
-"""Currencies and Rates
+"""empty message
 
-Revision ID: 1cfed04e67f5
+Revision ID: f20461bc808d
 Revises: 
-Create Date: 2019-01-03 18:26:28.069249
+Create Date: 2019-01-04 18:16:52.039666
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1cfed04e67f5'
+revision = 'f20461bc808d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,16 +22,14 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('code', sa.String(length=3), nullable=True),
     sa.Column('name', sa.String(length=64), nullable=True),
-    sa.Column('url', sa.String(length=64), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('url')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_currencies_code'), 'currencies', ['code'], unique=True)
     op.create_index(op.f('ix_currencies_name'), 'currencies', ['name'], unique=True)
     op.create_table('rates',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('bank_name', sa.String(length=64), nullable=True),
-    sa.Column('currency_code', sa.String(), nullable=True),
+    sa.Column('currency_code', sa.Integer(), nullable=True),
     sa.Column('buy', sa.Float(), nullable=False),
     sa.Column('sale', sa.Float(), nullable=False),
     sa.Column('timestamp', sa.DateTime(), nullable=False),
